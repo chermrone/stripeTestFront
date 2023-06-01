@@ -25,8 +25,9 @@ export class AppComponent {
 
   // Fonction pour récupérer le ConnectionToken depuis votre backend
   fetchConnectionToken = () => {
-    return this.http.post('/api/connection_token', {}).toPromise()
+    return this.http.post('http://127.0.0.1:8000/api/connection_token', {}).toPromise()
       .then((response: any) => {
+        console.log(response);
         return response.secret;
       });
   }
@@ -37,7 +38,7 @@ export class AppComponent {
   }
 
   discoverReaders() {
-    this.terminal.discoverReaders({ simulated: true }).then((result: any) => {
+    this.terminal.discoverReaders({ simulated: false }).then((result: any) => {
       if (result.error) {
         console.log('Échec de la détection du lecteur : ', result.error);
       } else if (result.discoveredReaders.length === 0) {
